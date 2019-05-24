@@ -1,7 +1,21 @@
 
 
+<div> 
+<button onclick="showTips()">Show Tips</button>
+</div>
+
+<div id="tipsDiv" style="display:none">
+
+
+
 <ul>
+    <% if (tips[0] == null) { %>
+      No existen tips para este cuestionario.
+    <% } %>
+
     <% for (var i in tips) { %>
+
+  
          <% var tip = tips[i]; %>
         <% var accepted = tip.accepted; %>
         <% var isAdmin = session.user && session.user.isAdmin; %>
@@ -33,3 +47,4 @@
 
     <% } %>
 </ul>                     
+</div>
