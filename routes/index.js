@@ -160,10 +160,11 @@ router.get('/quizzes/randomplay',          quizController.randPlay);
 router.get('/quizzes/randomcheck/:quizId', quizController.randCheck);
 
 //Routes for stats
-router.get('/stats', statsController.index);
-router.get('/stats/users', statsController.users);
-router.get('/stats/tips', statsController.tips);
-router.get('/stats/update', statsController.update);
+router.get('/stats',                        statsController.index);
+router.get('/stats/users',                  statsController.users);
+router.get('/stats/tips',                   statsController.tips);
+router.get('/stats/update',                 statsController.update);
+router.get('/stats/quizzes',                statsController.quizzes);
 
 
 module.exports = router;

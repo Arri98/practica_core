@@ -11,6 +11,9 @@ module.exports = function (sequelize, DataTypes) {
             },
            tips: {
                 type: DataTypes.INTEGER,
+            },
+            quizzes:{
+                type: DataTypes.INTEGER,
             }
         });
 };

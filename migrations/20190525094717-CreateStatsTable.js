@@ -28,6 +28,12 @@ module.exports = {
                 notEmpty: {msg: "Tips must not be empty."}
                 }
             },
+          quizzes:{
+                type: Sequelize.INTEGER,
+                validate: {
+                notEmpty: {msg: "Quizzes must not be empty."}
+                }
+          },
           createdAt: {
                   type: Sequelize.DATE,
                   allowNull: false

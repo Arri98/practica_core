@@ -1,12 +1,56 @@
 <div>
 <a href="/stats/users">Users</a>
 <a href="/stats/tips">Tips</a>
+<a href="/stats/quizzes">Quizzes</a>
 
  <% if (session.user) { %>
  <% if (session.user.isAdmin || session.user.id === users[i].id) { %>
 		<a href="/stats/update">Update</a>
 <% }%>
 <% }%>
+
+<canvas id="indexChart" height=80%   =></canvas>
+
+
+<input type="hidden" id="graphTips" value= <%= tips %>>
+<input type="hidden" id="graphFechas" value=<%= fechas %>  >
+<input type="hidden" id="graphQuizzes" value=<%= quizzes %>  >
+<input type="hidden" id="graphUsers" value=<%= users %>  >
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+
+<script>
+const fechas=JSON.parse(document.getElementById('graphFechas').value);
+const tips=JSON.parse(document.getElementById('graphTips').value);
+const users=JSON.parse(document.getElementById('graphUsers').value);
+const quizzes=JSON.parse(document.getElementById('graphQuizzes').value);
+
+
+var ctx = document.getElementById('indexChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: fechas,
+        datasets: [
+        	{label: 'Tips',data: tips,borderColor: 'purple', backgroundColor:'transparent',pointBackgroundColor: 'lightpurple'},
+        	{label: 'Quizzes',data: quizzes,borderColor: 'green', backgroundColor:'transparent',pointBackgroundColor: 'lightgreen'},
+        	{label: 'Users',data: users,borderColor: 'red', backgroundColor:'transparent',pointBackgroundColor: 'lightred'},
+        	]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
 
 
 </div>

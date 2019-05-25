@@ -3,7 +3,26 @@ const {models} = require("../models");
 const Sequelize = require("sequelize");
 
 exports.index = (req, res, next) => {
-    res.render('stats/index');
+    let fechasArray=[];
+    let usersArray=[];
+    let tipsArray=[];
+    let quizzesArray=[];
+    models.stat.findAll()
+    .then(data=>{
+        data.forEach((dato,index)=>{
+            usersArray.push(dato.usuarios);
+            fechasArray.push(dato.fecha);
+            quizzesArray.push(dato.quizzes);
+            tipsArray.push(dato.tips);
+        })
+       
+        const fechas=JSON.stringify(fechasArray);
+        const users=JSON.stringify(usersArray);
+        const quizzes=JSON.stringify(quizzesArray);
+        const tips=JSON.stringify(tipsArray);
+
+        res.render('stats/index',{quizzes,fechas,users,tips});
+    })
 };
 
 
@@ -43,9 +62,29 @@ exports.tips = (req, res, next) => {
     })
 };
 
+exports.quizzes = (req, res, next) => {
+    let fechasArray=[];
+    let quizzesArray=[];
+    models.stat.findAll()
+    .then(data=>{
+        data.forEach((dato,index)=>{
+           
+            quizzesArray.push(dato.quizzes);
+            fechasArray.push(dato.fecha);
+        })
+        console.log(fechasArray);
+
+        const fechas=JSON.stringify(fechasArray);
+        const quizzes=JSON.stringify(quizzesArray);
+        res.render('stats/quizzes',{quizzes,fechas});
+
+    })
+};
+
 exports.update = (req, res, next)=>{
     let usuarios;
     let tips;
+    let quizzes;
     const fecha= Date.now()
     var promises=[];
 
@@ -63,14 +102,22 @@ exports.update = (req, res, next)=>{
             })
     );
 
+    promises.push(
+        models.quiz.count()
+            .then(count=>{
+                quizzes=count;
+            })
+    );
+
     Promise.all(promises).then(()=>{
     const stat = models.stat.build({
         fecha,
         usuarios,
-        tips
+        tips,
+        quizzes
     });
 
-    stat.save({fields: ["fecha", "usuarios","tips"]});
+    stat.save({fields: ["fecha", "usuarios","tips","quizzes"]});
     res.redirect("/stats");
     })
 
