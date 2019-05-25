@@ -1,0 +1,12 @@
+<div>
+<a href="/stats/users">Users</a>
+<a href="/stats/tips">Tips</a>
+
+ <% if (session.user) { %>
+ <% if (session.user.isAdmin || session.user.id === users[i].id) { %>
+		<a href="/stats/update">Update</a>
+<% }%>
+<% }%>
+
+
+</div>

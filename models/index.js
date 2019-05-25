@@ -24,6 +24,7 @@ sequelize.import(path.join(__dirname,'user'));
 // Session
 sequelize.import(path.join(__dirname,'session'));
 
+sequelize.import(path.join(__dirname,'stat'));
 
 // Relation between models
 

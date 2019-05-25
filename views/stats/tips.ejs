@@ -1,0 +1,42 @@
+
+<h1>
+Tips throught time.
+</h1>
+
+<canvas id="tipsChart" height=80%   =></canvas>
+
+
+<input type="hidden" id="graphTips" value= <%= tips %>>
+<input type="hidden" id="graphFechas" value=<%= fechas %>  >
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+
+<script>
+const fechas=JSON.parse(document.getElementById('graphFechas').value);
+const tips=JSON.parse(document.getElementById('graphTips').value);
+
+
+var ctx = document.getElementById('tipsChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: fechas,
+        datasets: [{
+            label: 'Tips',
+            data: tips,
+            
+
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>

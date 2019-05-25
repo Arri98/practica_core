@@ -9,6 +9,7 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var partials = require('express-partials');
 var flash = require('express-flash');
 var methodOverride = require('method-override');
+var Chart = require('chart.js');
 
 var indexRouter = require('./routes/index');
 

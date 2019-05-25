@@ -4,6 +4,7 @@ var router = express.Router();
 const quizController = require('../controllers/quiz');
 const tipController = require('../controllers/tip');
 const userController = require('../controllers/user');
+const statsController = require('../controllers/stats');
 const sessionController = require('../controllers/session');
 
 //-----------------------------------------------------------
@@ -158,7 +159,11 @@ router.get('/quizzes/randomplay',          quizController.randPlay);
 router.get('/quizzes/randomplay',          quizController.randPlay);
 router.get('/quizzes/randomcheck/:quizId', quizController.randCheck);
 
-
+//Routes for stats
+router.get('/stats', statsController.index);
+router.get('/stats/users', statsController.users);
+router.get('/stats/tips', statsController.tips);
+router.get('/stats/update', statsController.update);
 
 
 module.exports = router;
