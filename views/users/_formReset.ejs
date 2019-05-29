@@ -1,26 +1,20 @@
 <script>
-    function confirmPassword() {
+    function confirm() {
         var pw1 = document.getElementById('user_password').value;
         var pw2 = document.getElementById('user_confirm_password').value;
-        var q = document.getElementById('security_question').value;
         var a = document.getElementById('security_answer').value;
+
 
         if (!pw1 || !pw2 ) {
             alert('Password and Confirmation fields must be filled in.');
             return false;
         }
 
-         if (!q ) {
-            alert('Security Question must be filled in.');
-            return false;
-        }
-
-        if (!a ) {
+        if (!a) {
             alert('Security Answer must be filled in.');
             return false;
         }
-
-        if (pw1 === pw2) {
+        else if (pw1 === pw2) {
             return true;
         } else {
             alert('Passwords do not match.');
@@ -32,12 +26,7 @@
 
 <ul>
     <li>
-        <% if ( !user.id) { %>
-        <label for="preg" class="rem">User name:</label>
-        <input type="text" id="username" name="username" value="<%= user.username %>" autocomplete="off"/>
-        <% } else { %>
         Username: <%= user.username %>
-        <% } %>
     </li>
 
     <li>
@@ -52,8 +41,7 @@
     </li>
 
     <li>
-        <label for="security_question" class="rem">Reset Password Question:</label>
-        <input type="text" id="security_question" name="question" autocomplete="off"/>
+        Security Question: <%=user.question%>
     </li>
 
    <li>
@@ -70,5 +58,5 @@
 </div>
 
 <div>
-    <input type="submit" value="Save" onclick="return confirmPassword()">
+    <input type="submit" value="Save" onclick="return confirm()">
 </div>

@@ -22,6 +22,12 @@ module.exports = function (sequelize, DataTypes) {
             salt: {
                 type: DataTypes.STRING
             },
+            question: {
+                type: DataTypes.STRING
+            },
+            answer: {
+                type: DataTypes.STRING
+            },
             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false

@@ -166,5 +166,10 @@ router.get('/stats/tips',                   statsController.tips);
 router.get('/stats/update',                 statsController.update);
 router.get('/stats/quizzes',                statsController.quizzes);
 
+//Routes for password reset
+router.get('/users/:userId(\\d+)/resetForm',    userController.reset);
+router.put('/users/:userId(\\d+)/update',   userController.updatePassword);
+router.get('/users/reset',   userController.passwordForgotten);
+router.get('/users/resetCheck',userController.buscaUsuario);
 
 module.exports = router;

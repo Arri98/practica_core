@@ -75,15 +75,17 @@ exports.new = (req, res, next) => {
 // POST /users
 exports.create = (req, res, next) => {
 
-    const {username, password} = req.body;
+    const {username, password, question, answer} = req.body;
 
     const user = models.user.build({
         username,
-        password
+        password,
+        question,
+        answer
     });
 
     // Save into the data base
-    user.save({fields: ["username", "password", "salt"]})
+    user.save({fields: ["username", "password","question","answer", "salt"]})
     .then(user => { // Render the users page
         req.flash('success', 'User created successfully.');
         if (req.session.user) {
@@ -160,4 +162,58 @@ exports.destroy = (req, res, next) => {
     .catch(error => next(error));
 };
 
-exports.get
+exports.reset = (req,res,next)=>{
+    const {user} = req;
+    res.render('users/reset',{user});
+}
+
+exports.buscaUsuario = (req,res,next)=>{
+    login=req.query.login;
+    models.user.findAll({
+       where: {
+    username: login
+  }})
+    .then(user => {
+        if (user.length!=0) {
+            res.redirect('/users/'+user[0].id+'/resetForm');
+        } else {
+            req.flash('error', 'There is no user with login=' + login + '.');
+            res.redirect('/users/reset');
+        }
+    })
+    .catch(error => next(error));
+
+
+}
+
+
+exports.passwordForgotten = (req,res,next)=>{
+
+    res.render('session/passwordForgotten');
+}
+
+exports.updatePassword = (req, res, next) => {
+
+    const {user, body} = req;
+
+   
+    user.password = body.password;
+
+    // Password can not be empty
+    if (user.answer!=body.answer) {
+        req.flash('error', "Wrong answer");
+        return res.render('users/reset', {user});
+    }
+
+    user.save({fields: ["password", "salt"]})
+    .then(user => {
+        req.flash('success', 'Password updated successfully.');
+        res.redirect('/session');
+    })
+    .catch(Sequelize.ValidationError, error => {
+        req.flash('error', 'There are errors in the form:');
+        error.errors.forEach(({message}) => req.flash('error', message));
+        res.render('users/reset');
+    })
+    .catch(error => next(error));
+};
