@@ -26,7 +26,7 @@ module.exports = {
             },
             {
                 username: 'Carlos',
-                password: crypt.encryptPassword('aaaa', 'bbbb'),
+                password: crypt.encryptPassword('aaaa', 'bbcc'),
                 salt: 'bbcc',
                 question: '1+1',
                 isAdmin: true,
